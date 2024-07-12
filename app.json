@@ -13,9 +13,16 @@
         {
           "origin": "https://n"
         }
-      ]
+      ],
+      "expo-build-properties"
     ],
     "name": "ema",
-    "slug": "ema"
+    "slug": "ema",
+    "android": {
+      "package": "com.ceejeey.ema"
+    },
+    "ios": {
+      "bundleIdentifier": "com.ceejeey.ema"
+    }
   }
 }
