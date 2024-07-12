@@ -9,6 +9,7 @@ const StackLayout = () => {
     <QueryClientProvider client={queryClient}>
       <Stack>
         <Stack.Screen name='index' options={{ headerShown: true, title: 'Employee List' }} />
+        <Stack.Screen name='details' options={{ headerShown: true, title: 'Employee Details' }} />
       </Stack>
     </QueryClientProvider>
   )
