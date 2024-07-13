@@ -49,7 +49,7 @@ const useGetRequest = (path: string, key: string, enabled = true): UseGetRequest
     queryKey: [key], // Unique query key for caching
     queryFn: () => getRequestFn(path), // Function to fetch data
     enabled, // Whether the query should automatically run
-    retry: 1, // Number of retry attempts on failure
+    retry: 0, // Number of retry attempts on failure
   })
 
   // Return relevant states and functions from the useQuery hook
