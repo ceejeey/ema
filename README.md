@@ -62,7 +62,8 @@ npx expo run:ios
 - Emphasis on component structuring and reusability for maintainable code.
 - Separation of logic and UI with custom hooks.
 
-Usage
+## Usage
+
 Fetching Data
 The app fetches employee data from an API endpoint using Axios and React Query. The data is cached to improve performance and reduce unnecessary network requests.
 
