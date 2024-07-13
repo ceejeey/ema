@@ -1,10 +1,18 @@
 import useGetRequest from '@/hooks/useGetRequest'
 import { useRouter } from 'expo-router'
 import React, { useMemo, useState } from 'react'
-import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from 'react-native'
+import {
+  ActivityIndicator,
+  FlatList,
+  RefreshControl,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import Search from '../components/search'
 import { SafeAreaView } from 'react-native'
 import FloatingButton from '../components/floatingButton'
+import SwipeableCard from '@/components/swipeableCard'
 
 const Index = () => {
   const [filters, setFilters] = useState({
@@ -15,12 +23,12 @@ const Index = () => {
     salaryTo: '',
   })
 
-  const router = useRouter()
-
-  const { data: employeesData, isLoading: isEmployeesDataLoading } = useGetRequest(
-    `/v1/employees`,
-    `employees`
-  )
+  const {
+    data: employeesData,
+    isLoading: isEmployeesDataLoading,
+    refetch,
+    isFetching,
+  } = useGetRequest(`/v1/employees`, `employees`)
 
   const filteredEmployees = useMemo(() => {
     if (!employeesData) return []
@@ -55,23 +63,8 @@ const Index = () => {
           className='mt-2'
           data={filteredEmployees}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={() => router.push({ pathname: '/details/[id]', params: { id: item.id } })}
-              className='flex flex-row justify-between  py-2 border-b border-b-gray-400'
-            >
-              <View className='w-[50px] h-[50px] rounded-full bg-black '>
-                <Text className='text-base m-auto text-white'>N</Text>
-              </View>
-              <View className='w-[55%]'>
-                <Text className='text-base'>Name: {item.employee_name}</Text>
-                <Text className='text-base'>Age: {item.employee_age}</Text>
-              </View>
-              <View>
-                <Text style={{ color: '#666' }}>Salary: {item.employee_salary}</Text>
-              </View>
-            </TouchableOpacity>
-          )}
+          renderItem={({ item }) => <SwipeableCard item={item} />}
+          refreshControl={<RefreshControl refreshing={isFetching} onRefresh={refetch} />}
         />
       </View>
       <FloatingButton />
